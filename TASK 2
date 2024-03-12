@@ -1,0 +1,39 @@
+import cv2
+from tracker import Tracker  # Your custom tracker implementation
+from detector import Detector  # Your custom detector implementation
+
+# Initialize video capture
+video_capture = cv2.VideoCapture('input_video.mp4')
+
+# Initialize detector and tracker
+detector = Detector()
+tracker = Tracker()
+
+# Loop through video frames
+while video_capture.isOpened():
+    ret, frame = video_capture.read()
+    if not ret:
+        break
+
+    # Object detection
+    detections = detector.detect(frame)
+
+    # Object tracking
+    tracked_objects = tracker.track(frame, detections)
+
+    # Visualization
+    for obj in tracked_objects:
+        bbox = obj['bbox']
+        label = obj['label']
+        cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 2)
+        cv2.putText(frame, label, (bbox[0], bbox[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+    # Display frame
+    cv2.imshow('Object Detection and Tracking', frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# Release video capture
+video_capture.release()
+cv2.destroyAllWindows()
