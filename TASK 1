@@ -1,0 +1,14 @@
+def chatbot():
+    print("Hello! I'm your friend, chatbot.")
+    print("What can I do for you today?")
+
+    while True:
+        user_input = input("You:").lower()
+
+        if user_input == "hello":
+            print("Chatbot:Hello my friend !")
+        elif user_input == "how are you?":
+            print("Chatbot: I'm good and I hope you are good too !")
+            elif user_input =="How old are you ?"
+            print("I'm a computer so I won't age ")
+        elif user_input == "quit
